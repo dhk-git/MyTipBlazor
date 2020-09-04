@@ -9,36 +9,29 @@
     This page uses our Blazor Data Grid component to display and edit weather forecast values.
 </p>
 
-@if(forecasts == null) {
+@if(myTipHeaders == null) {
     <p><em>Loading...</em></p>
 } else {
-    <DxDataGrid Data="@forecasts">
-        <DxDataGridDateEditColumn Caption="Date" Field="Date" />
-        <DxDataGridColumn Caption="Temperature" Field="TemperatureF" />
-    </DxDataGrid>
+<DxDataGrid Data="@myTipHeaders">
+    <DxDataGridColumn Caption="TipID" Field="TipHeaderID" />
+    <DxDataGridColumn Caption="제목" Field="TipTitle" />
+    <DxDataGridDateEditColumn Caption="생성일자" Field="InsertDttm" />
+    <DxDataGridDateEditColumn Caption="수정일자" Field="UpdateDttm" />
+</DxDataGrid>
 }
-<button class="btn btn-success" @onclick=Aaa>Test</button>
-<button class="btn btn-success" @onclick=Aaa>Test!!!</button>
 
 <h1>@TestProp</h1>
+<h1>하하하하</h1>
 
 @code {
-    private WeatherForecast[] forecasts;
+    //private WeatherForecast[] forecasts;
+
+    private MyTip.Shared.MyTipModels.MyTipHeader[] myTipHeaders;
 
     protected override async Task OnInitializedAsync() {
-        forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>("WeatherForecast");
+        //forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>("WeatherForecast");
+        myTipHeaders = await Http.GetFromJsonAsync<MyTip.Shared.MyTipModels.MyTipHeader[]>("api/MyTipHeaders");
     }
     public string TestProp { get; set; } = "aaaa";
-    public void Aaa() {
-        if (TestProp == "aaaa")
-        {
-            TestProp = "glgddddlglgl";
-        }
-        else
-        {
-            TestProp = "aaaa";
-        }
-
-
-    }
+    
 }
