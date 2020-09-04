@@ -1,0 +1,44 @@
+@page "/datagrid"
+@inject HttpClient Http
+@using MyTip.Shared
+
+<h2>DevExpress Data Grid</h2>
+
+<p class="pb-2 pt-2">
+    The DevExpress Data Grid for Blazor allows you to display and manage data via a tabular (rows/columns) UI metaphor.
+    This page uses our Blazor Data Grid component to display and edit weather forecast values.
+</p>
+
+@if(forecasts == null) {
+    <p><em>Loading...</em></p>
+} else {
+    <DxDataGrid Data="@forecasts">
+        <DxDataGridDateEditColumn Caption="Date" Field="Date" />
+        <DxDataGridColumn Caption="Temperature" Field="TemperatureF" />
+    </DxDataGrid>
+}
+<button class="btn btn-success" @onclick=Aaa>Test</button>
+<button class="btn btn-success" @onclick=Aaa>Test!!!</button>
+
+<h1>@TestProp</h1>
+
+@code {
+    private WeatherForecast[] forecasts;
+
+    protected override async Task OnInitializedAsync() {
+        forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>("WeatherForecast");
+    }
+    public string TestProp { get; set; } = "aaaa";
+    public void Aaa() {
+        if (TestProp == "aaaa")
+        {
+            TestProp = "glgddddlglgl";
+        }
+        else
+        {
+            TestProp = "aaaa";
+        }
+
+
+    }
+}
